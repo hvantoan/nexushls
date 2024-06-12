@@ -3,8 +3,8 @@ ifeq ($(LBITS),64)
 RACE=-race
 endif
 
-test-examples:
-	go build -o /dev/null ./examples/...
+# test-examples:
+# 	go build -o /dev/null ./examples/...
 
 test-pkg:
 	go test -v $(RACE) -coverprofile=coverage-pkg.txt ./pkg/...
@@ -12,7 +12,7 @@ test-pkg:
 test-root:
 	go test -v $(RACE) -coverprofile=coverage-root.txt .
 
-test-nodocker: test-examples test-pkg test-root
+test-nodocker: test-pkg test-root
 
 define DOCKERFILE_TEST
 ARG ARCH

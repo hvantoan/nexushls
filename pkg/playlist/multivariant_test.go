@@ -39,7 +39,7 @@ var casesMultivariant = []struct {
 	dec    Multivariant
 }{
 	{
-		"gohlslib",
+		"nexushls",
 		"#EXTM3U\n" +
 			"#EXT-X-VERSION:9\n" +
 			"#EXT-X-INDEPENDENT-SEGMENTS\n" +

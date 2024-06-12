@@ -1,4 +1,4 @@
-package gohlslib
+package nexushls
 
 import (
 	"github.com/hvantoan/nexushls/pkg/codecs"

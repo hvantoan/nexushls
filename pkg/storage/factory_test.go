@@ -21,7 +21,7 @@ func TestStorage(t *testing.T) {
 				s = NewFactoryRAM()
 			} else {
 				var err error
-				dir, err = os.MkdirTemp("", "gohlslib")
+				dir, err = os.MkdirTemp("", "nexushls")
 				require.NoError(t, err)
 				defer os.RemoveAll(dir)
 

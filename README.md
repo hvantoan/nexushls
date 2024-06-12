@@ -1,9 +1,9 @@
-# gohlslib
+# nexushls
 
 [![Test](https://github.com/hvantoan/nexushls/workflows/test/badge.svg)](https://github.com/hvantoan/nexushls/actions?query=workflow:test)
 [![Lint](https://github.com/hvantoan/nexushls/workflows/lint/badge.svg)](https://github.com/hvantoan/nexushls/actions?query=workflow:lint)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hvantoan/nexushls)](https://goreportcard.com/report/github.com/hvantoan/nexushls)
-[![CodeCov](https://codecov.io/gh/bluenviron/gohlslib/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bluenviron/gohlslib/branch/main)
+[![CodeCov](https://codecov.io/gh/bluenviron/nexushls/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bluenviron/nexushls/branch/main)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/hvantoan/nexushls)](https://pkg.go.dev/github.com/hvantoan/nexushls#pkg-index)
 
 HLS client and muxer library for the Go programming language

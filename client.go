@@ -1,9 +1,9 @@
 /*
-Package gohlslib is a HLS client and muxer library for the Go programming language.
+Package nexushls is a HLS client and muxer library for the Go programming language.
 
 Examples are available at https://github.com/hvantoan/nexushls/tree/main/examples
 */
-package gohlslib
+package nexushls
 
 import (
 	"context"

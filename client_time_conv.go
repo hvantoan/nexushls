@@ -1,3 +1,3 @@
-package gohlslib
+package nexushls
 
 type clientTimeConv interface{}
