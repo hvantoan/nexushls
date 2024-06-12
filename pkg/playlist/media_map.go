@@ -3,7 +3,7 @@ package playlist
 import (
 	"fmt"
 
-	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexushls/pkg/playlist/primitives"
 )
 
 // MediaMap is a EXT-X-MAP tag.

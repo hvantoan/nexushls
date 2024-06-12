@@ -3,7 +3,7 @@ package playlist
 import (
 	"fmt"
 
-	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexushls/pkg/playlist/primitives"
 )
 
 // MultivariantRenditionType is a rendition type.

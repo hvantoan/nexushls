@@ -6,7 +6,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/hvantoan/nexus_hls/pkg/storage"
+	"github.com/hvantoan/nexushls/pkg/storage"
 
 	"github.com/bluenviron/mediacommon/pkg/formats/mpegts"
 )

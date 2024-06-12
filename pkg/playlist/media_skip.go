@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexushls/pkg/playlist/primitives"
 )
 
 // MediaSkip is a EXT-X-SKIP tag.

@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/hvantoan/nexus_hls/pkg/storage"
+	"github.com/hvantoan/nexushls/pkg/storage"
 )
 
 type muxerSegmentFMP4 struct {

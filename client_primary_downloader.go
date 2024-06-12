@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/hvantoan/nexus_hls/pkg/playlist"
+	"github.com/hvantoan/nexushls/pkg/playlist"
 )
 
 func checkSupport(codecs []string) bool {

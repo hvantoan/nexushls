@@ -13,7 +13,7 @@ import (
 
 	"github.com/bluenviron/mediacommon/pkg/codecs/h264"
 	"github.com/bluenviron/mediacommon/pkg/codecs/mpeg4audio"
-	"github.com/hvantoan/nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexushls/pkg/codecs"
 	"github.com/stretchr/testify/require"
 
 	"github.com/bluenviron/mediacommon/pkg/formats/fmp4"

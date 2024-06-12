@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/bluenviron/mediacommon/pkg/formats/fmp4"
-	"github.com/hvantoan/nexus_hls/pkg/storage"
+	"github.com/hvantoan/nexushls/pkg/storage"
 )
 
 func partName(prefix string, id uint64) string {

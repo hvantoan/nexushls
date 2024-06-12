@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexushls/pkg/playlist/primitives"
 )
 
 // MediaPart is a EXT-X-PART tag.

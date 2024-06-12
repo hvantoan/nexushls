@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexushls/pkg/playlist/primitives"
 )
 
 // MultivariantStart is a EXT-X-START tag.

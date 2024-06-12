@@ -8,7 +8,7 @@ import (
 
 	"github.com/bluenviron/mediacommon/pkg/formats/fmp4"
 
-	"github.com/hvantoan/nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexushls/pkg/codecs"
 )
 
 func fmp4PickLeadingTrack(init *fmp4.Init) int {

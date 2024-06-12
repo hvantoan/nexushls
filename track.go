@@ -1,7 +1,7 @@
 package gohlslib
 
 import (
-	"github.com/hvantoan/nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexushls/pkg/codecs"
 )
 
 // Track is a HLS track.
