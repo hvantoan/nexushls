@@ -6,7 +6,7 @@
 [![CodeCov](https://codecov.io/gh/bluenviron/gohlslib/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bluenviron/gohlslib/branch/main)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/hvantoan/nexushls)](https://pkg.go.dev/github.com/hvantoan/nexushls#pkg-index)
 
-HLS client and muxer library for the Go programming language, written for [MediaMTX](https://github.com/bluenviron/mediamtx).
+HLS client and muxer library for the Go programming language
 
 Go &ge; 1.20 is required.
 
@@ -30,21 +30,9 @@ Features:
   * Examples
 
 ## Table of contents
-
-* [Examples](#examples)
 * [API Documentation](#api-documentation)
 * [Specifications](#specifications)
 * [Related projects](#related-projects)
-
-## Examples
-
-* [playlist-parser](examples/playlist-parser/main.go)
-* [client](examples/client/main.go)
-* [client-absolute-timestamp](examples/client-absolute-timestamp/main.go)
-* [client-codec-h264-save-to-disk](examples/client-codec-h264-save-to-disk/main.go)
-* [client-codec-h264-convert-to-jpeg](examples/client-codec-h264-convert-to-jpeg/main.go)
-* [client-codec-mpeg4audio-save-to-disk](examples/client-codec-mpeg4audio-save-to-disk/main.go)
-* [muxer](examples/muxer/main.go)
 
 ## API Documentation
 
@@ -60,9 +48,3 @@ Features:
 |[HTTP Live Streaming by Apple](https://developer.apple.com/documentation/http-live-streaming)|protocol|
 |[Codec specifications](https://github.com/bluenviron/mediacommon#specifications)|codecs|
 |[Golang project layout](https://github.com/golang-standards/project-layout)|project layout|
-
-## Related projects
-
-* [MediaMTX](https://github.com/bluenviron/mediamtx)
-* [gortsplib](https://github.com/bluenviron/gortsplib)
-* [mediacommon](https://github.com/bluenviron/mediacommon)
