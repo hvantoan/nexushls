@@ -13,8 +13,8 @@ import (
 	"github.com/bluenviron/mediacommon/pkg/codecs/h265"
 	"github.com/bluenviron/mediacommon/pkg/codecs/vp9"
 
-	"nexus_hls/pkg/codecs"
-	"nexus_hls/pkg/storage"
+	"github.com/hvantoan/nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexus_hls/pkg/storage"
 )
 
 // a prefix is needed to prevent usage of cached segments

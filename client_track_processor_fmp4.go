@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/bluenviron/mediacommon/pkg/formats/fmp4"
-	"nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexus_hls/pkg/codecs"
 )
 
 type procEntryFMP4 struct {

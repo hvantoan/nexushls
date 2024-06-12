@@ -1,4 +1,4 @@
-module nexus_hls
+module github.com/hvantoan/nexus_hls
 
 go 1.20
 

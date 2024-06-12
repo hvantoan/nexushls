@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
 )
 
 const (

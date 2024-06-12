@@ -1,10 +1,10 @@
 # gohlslib
 
-[![Test](https://nexus_hls/workflows/test/badge.svg)](https://nexus_hls/actions?query=workflow:test)
-[![Lint](https://nexus_hls/workflows/lint/badge.svg)](https://nexus_hls/actions?query=workflow:lint)
-[![Go Report Card](https://goreportcard.com/badge/nexus_hls)](https://goreportcard.com/report/nexus_hls)
+[![Test](https://github.com/hvantoan/nexus_hls/workflows/test/badge.svg)](https://github.com/hvantoan/nexus_hls/actions?query=workflow:test)
+[![Lint](https://github.com/hvantoan/nexus_hls/workflows/lint/badge.svg)](https://github.com/hvantoan/nexus_hls/actions?query=workflow:lint)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hvantoan/nexus_hls)](https://goreportcard.com/report/github.com/hvantoan/nexus_hls)
 [![CodeCov](https://codecov.io/gh/bluenviron/gohlslib/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bluenviron/gohlslib/branch/main)
-[![PkgGoDev](https://pkg.go.dev/badge/nexus_hls)](https://pkg.go.dev/nexus_hls#pkg-index)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/hvantoan/nexus_hls)](https://pkg.go.dev/github.com/hvantoan/nexus_hls#pkg-index)
 
 HLS client and muxer library for the Go programming language, written for [MediaMTX](https://github.com/bluenviron/mediamtx).
 
@@ -48,7 +48,7 @@ Features:
 
 ## API Documentation
 
-[Click to open the API Documentation](https://pkg.go.dev/nexus_hls#pkg-index)
+[Click to open the API Documentation](https://pkg.go.dev/github.com/hvantoan/nexus_hls#pkg-index)
 
 ## Specifications
 

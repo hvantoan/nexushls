@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
 )
 
 // MultivariantVariant is a EXT-X-STREAM-INF tag.

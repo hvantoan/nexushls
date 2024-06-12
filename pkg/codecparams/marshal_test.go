@@ -6,7 +6,7 @@ import (
 	"github.com/bluenviron/mediacommon/pkg/codecs/mpeg4audio"
 	"github.com/stretchr/testify/require"
 
-	"nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexus_hls/pkg/codecs"
 )
 
 func TestMarshal(t *testing.T) {

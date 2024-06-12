@@ -16,7 +16,7 @@ import (
 	"github.com/bluenviron/mediacommon/pkg/formats/fmp4"
 	"github.com/stretchr/testify/require"
 
-	"nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexus_hls/pkg/codecs"
 )
 
 var testTime = time.Date(2010, 0o1, 0o1, 0o1, 0o1, 0o1, 0, time.UTC)

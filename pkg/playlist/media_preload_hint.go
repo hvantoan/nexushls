@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
 )
 
 // MediaPreloadHint sia EXT-X-PRELOAD-HINT tag.

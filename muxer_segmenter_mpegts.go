@@ -8,8 +8,8 @@ import (
 	"github.com/bluenviron/mediacommon/pkg/codecs/h264"
 	"github.com/bluenviron/mediacommon/pkg/formats/mpegts"
 
-	"nexus_hls/pkg/codecs"
-	"nexus_hls/pkg/storage"
+	"github.com/hvantoan/nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexus_hls/pkg/storage"
 )
 
 const (

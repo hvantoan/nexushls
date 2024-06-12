@@ -12,7 +12,7 @@ import (
 
 	"github.com/bluenviron/mediacommon/pkg/formats/mpegts"
 
-	"nexus_hls/pkg/codecs"
+	"github.com/hvantoan/nexus_hls/pkg/codecs"
 )
 
 func mpegtsPickLeadingTrack(mpegtsTracks []*mpegts.Track) int {

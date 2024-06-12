@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
 )
 
 // MediaSegment is a segment of a media playlist.

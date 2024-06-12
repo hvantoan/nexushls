@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
 )
 
 // MediaPartInf is a EXT-X-PART-INF tag.

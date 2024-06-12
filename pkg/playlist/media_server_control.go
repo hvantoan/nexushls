@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 
-	"nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
 )
 
 // MediaServerControl is a EXT-X-SERVER-CONTROL tag.

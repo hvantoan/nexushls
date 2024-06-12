@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"nexus_hls/pkg/playlist"
+	"github.com/hvantoan/nexus_hls/pkg/playlist"
 )
 
 func findSegmentWithInvPosition(segments []*playlist.MediaSegment, invPos int) (*playlist.MediaSegment, int) {

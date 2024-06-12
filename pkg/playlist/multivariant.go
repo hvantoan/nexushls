@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"nexus_hls/pkg/playlist/primitives"
+	"github.com/hvantoan/nexus_hls/pkg/playlist/primitives"
 )
 
 // Multivariant is a multivariant playlist.
