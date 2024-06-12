@@ -9,7 +9,7 @@ github.com/asticode/go-astikit
 # github.com/asticode/go-astits v1.13.0
 ## explicit; go 1.13
 github.com/asticode/go-astits
-# github.com/bluenviron/mediacommon v1.11.1-0.20240525122142-20163863aa75
+# github.com/bluenviron/mediacommon v1.12.0
 ## explicit; go 1.20
 github.com/bluenviron/mediacommon/pkg/bits
 github.com/bluenviron/mediacommon/pkg/codecs/ac3
