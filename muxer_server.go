@@ -5,6 +5,8 @@ import (
 	"math"
 	"net/http"
 	"net/url"
+	"os"
+	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -294,6 +296,8 @@ func filterOutHLSParams(rawQuery string) string {
 }
 
 func generateMediaPlaylistFMP4(
+	playList string,
+	isPlayaBack bool,
 	isDeltaUpdate bool,
 	variant MuxerVariant,
 	segments []muxerSegment,
@@ -311,6 +315,8 @@ func generateMediaPlaylistFMP4(
 		Version:        10,
 		TargetDuration: targetDuration,
 		MediaSequence:  segmentDeleteCount,
+		Playlist:       playList,
+		IsPlayBack:     isPlayaBack,
 	}
 
 	if variant == MuxerVariantLowLatency {
@@ -432,6 +438,8 @@ func generateMediaPlaylistFMP4(
 }
 
 func generateMediaPlaylist(
+	playList string,
+	isPlayBack bool,
 	isDeltaUpdate bool,
 	variant MuxerVariant,
 	segments []muxerSegment,
@@ -450,6 +458,8 @@ func generateMediaPlaylist(
 	}
 
 	return generateMediaPlaylistFMP4(
+		playList,
+		isPlayBack,
 		isDeltaUpdate,
 		variant,
 		segments,
@@ -479,6 +489,8 @@ type muxerServer struct {
 	nextSegmentParts   []*muxerPart
 	nextPartID         uint64
 	init               []byte
+	playList           string
+	isPlayBack         bool
 }
 
 func (s *muxerServer) initialize() {
@@ -560,7 +572,10 @@ func (s *muxerServer) handle(w http.ResponseWriter, r *http.Request) {
 
 	case (s.variant != MuxerVariantMPEGTS && strings.HasSuffix(name, ".mp4")) ||
 		(s.variant == MuxerVariantMPEGTS && strings.HasSuffix(name, ".ts")):
-		s.handleSegmentOrPart(name, w)
+
+		dir := path.Dir(r.RequestURI)
+		identifier := path.Base(dir)
+		s.handleSegmentOrPart(name, identifier, w)
 	}
 }
 
@@ -642,6 +657,8 @@ func (s *muxerServer) handleMediaPlaylist(
 				}
 
 				byts, err := generateMediaPlaylist(
+					s.playList,
+					s.isPlayBack,
 					isDeltaUpdate,
 					s.variant,
 					s.segments,
@@ -691,6 +708,8 @@ func (s *muxerServer) handleMediaPlaylist(
 		}
 
 		byts, err := generateMediaPlaylist(
+			s.playList,
+			s.isPlayBack,
 			isDeltaUpdate,
 			s.variant,
 			s.segments,
@@ -741,23 +760,39 @@ func (s *muxerServer) handleInitFile(w http.ResponseWriter) {
 	w.Write(init)
 }
 
-func (s *muxerServer) handleSegmentOrPart(fname string, w http.ResponseWriter) {
+func localReader(fpath string) (io.ReadCloser, error) {
+	r, err := os.Open(fpath)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
+func (s *muxerServer) handleSegmentOrPart(fname string, key string, w http.ResponseWriter) {
 	switch {
 	case strings.HasPrefix(fname, s.prefix+"_"+"seg"):
 		s.mutex.Lock()
 		segment, ok := s.segmentsByName[fname]
 		s.mutex.Unlock()
 
+		var rw io.ReadCloser
 		if !ok {
-			return
+			r, err := localReader("./.videos/" + key + "/" + fname)
+			rw = r
+			if err != nil {
+				return
+			}
+		} else {
+			r, err := segment.reader()
+			rw = r
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
 		}
 
-		r, err := segment.reader()
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
-		defer r.Close()
+		defer rw.Close()
 
 		w.Header().Set("Cache-Control", "max-age="+segmentMaxAge)
 		w.Header().Set(
@@ -770,7 +805,7 @@ func (s *muxerServer) handleSegmentOrPart(fname string, w http.ResponseWriter) {
 			}(),
 		)
 		w.WriteHeader(http.StatusOK)
-		io.Copy(w, r)
+		io.Copy(w, rw)
 
 	case s.variant == MuxerVariantLowLatency && strings.HasPrefix(fname, s.prefix+"_"+"part"):
 		s.mutex.Lock()
@@ -852,6 +887,15 @@ func (s *muxerServer) publishSegmentInner(segment muxerSegment) error {
 		toDelete := s.segments[0]
 
 		if toDeleteSeg, ok := toDelete.(*muxerSegmentFMP4); ok {
+
+			// Update Playlist
+			u := toDeleteSeg.name
+			plse := &playlist.MediaSegment{
+				Duration: toDeleteSeg.getDuration(),
+				URI:      u,
+				DateTime: &toDeleteSeg.startNTP,
+			}
+			s.playList += plse.Marshal()
 			for _, part := range toDeleteSeg.parts {
 				delete(s.partsByName, part.getName())
 			}

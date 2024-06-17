@@ -7,21 +7,23 @@ import (
 )
 
 type fileDisk struct {
+	noRemove  bool
 	fpath     string
 	f         *os.File
 	parts     []*partDisk
 	finalSize uint64
 }
 
-func newFileDisk(fpath string) (File, error) {
+func newFileDisk(fpath string, noRemove bool) (File, error) {
 	f, err := os.Create(fpath)
 	if err != nil {
 		return nil, err
 	}
 
 	return &fileDisk{
-		fpath: fpath,
-		f:     f,
+		noRemove: noRemove,
+		fpath:    fpath,
+		f:        f,
 	}, nil
 }
 
@@ -47,7 +49,9 @@ func (s *fileDisk) Finalize() {
 
 // Remove implements File.
 func (s *fileDisk) Remove() {
-	os.Remove(s.fpath)
+	if !s.noRemove {
+		os.Remove(s.fpath)
+	}
 }
 
 // NewPart implements File.

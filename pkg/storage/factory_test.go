@@ -25,7 +25,7 @@ func TestStorage(t *testing.T) {
 				require.NoError(t, err)
 				defer os.RemoveAll(dir)
 
-				s = NewFactoryDisk(dir)
+				s = NewFactoryDisk(dir, false)
 			}
 
 			seg, err := s.NewFile("myseg.mp4")

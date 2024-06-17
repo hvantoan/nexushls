@@ -76,6 +76,10 @@ type Muxer struct {
 	// than saving them on RAM, but allows to preserve RAM.
 	Directory string
 
+	// Using Directory to save, and using ram to cache segments.
+	// This segment has save to disk when close.
+	IsPlayBack bool
+
 	// Deprecated: replaced with SegmentMinDuration
 	SegmentDuration time.Duration
 	// Deprecated: replaced with PartMinDuration
@@ -124,7 +128,7 @@ func (m *Muxer) Start() error {
 
 	default:
 		if m.SegmentCount < 3 {
-			return fmt.Errorf("The minimum number of HLS segments is 3")
+			return fmt.Errorf("the minimum number of HLS segments is 3")
 		}
 	}
 
@@ -151,7 +155,7 @@ func (m *Muxer) Start() error {
 	}
 
 	if m.Directory != "" {
-		m.storageFactory = storage.NewFactoryDisk(m.Directory)
+		m.storageFactory = storage.NewFactoryDisk(m.Directory, m.IsPlayBack)
 	} else {
 		m.storageFactory = storage.NewFactoryRAM()
 	}
@@ -162,6 +166,8 @@ func (m *Muxer) Start() error {
 		videoTrack:   m.VideoTrack,
 		audioTrack:   m.AudioTrack,
 		prefix:       m.prefix,
+		isPlayBack:   m.IsPlayBack,
+		playList:     "",
 	}
 	m.server.initialize()
 

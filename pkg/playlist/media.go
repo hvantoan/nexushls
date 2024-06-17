@@ -80,7 +80,9 @@ type Media struct {
 	Map *MediaMap
 
 	// #EXT-X-SKIP
-	Skip *MediaSkip
+	Skip       *MediaSkip
+	IsPlayBack bool
+	Playlist   string
 
 	// segments
 	// at least one is required
@@ -366,9 +368,13 @@ func (m Media) Marshal() ([]byte, error) {
 		ret += m.PartInf.marshal()
 	}
 
-	ret += "#EXT-X-MEDIA-SEQUENCE:" + strconv.FormatInt(int64(m.MediaSequence), 10) + "\n"
+	start := strconv.FormatInt(int64(m.MediaSequence), 10)
+	if m.IsPlayBack {
+		start = "7"
+	}
+	ret += "#EXT-X-MEDIA-SEQUENCE:" + start + "\n"
 
-	if m.DiscontinuitySequence != nil {
+	if m.DiscontinuitySequence != nil && !m.IsPlayBack {
 		ret += "#EXT-X-DISCONTINUITY-SEQUENCE:" + strconv.FormatInt(int64(m.MediaSequence), 10) + "\n"
 	}
 
@@ -380,12 +386,16 @@ func (m Media) Marshal() ([]byte, error) {
 		ret += m.Map.marshal()
 	}
 
-	if m.Skip != nil {
+	if m.Skip != nil && !m.IsPlayBack {
 		ret += m.Skip.marshal()
 	}
 
+	if m.IsPlayBack {
+		ret += m.Playlist
+	}
+
 	for _, seg := range m.Segments {
-		ret += seg.marshal()
+		ret += seg.Marshal()
 	}
 
 	for _, part := range m.Parts {

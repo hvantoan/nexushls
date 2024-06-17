@@ -47,7 +47,7 @@ func (s MediaSegment) validate() error {
 	return nil
 }
 
-func (s MediaSegment) marshal() string {
+func (s MediaSegment) Marshal() string {
 	ret := ""
 
 	if s.DateTime != nil {
