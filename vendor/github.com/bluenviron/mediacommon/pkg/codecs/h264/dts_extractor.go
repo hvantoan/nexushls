@@ -19,7 +19,7 @@ const (
 	maxBytesToGetPOC = 22
 )
 
-func getPictureOrderCount(buf []byte, sps *SPS) (uint32, error) {
+func getPictureOrderCount(buf []byte, sps *SPS, idr bool) (uint32, error) {
 	buf = buf[1:]
 	lb := len(buf)
 
@@ -48,6 +48,13 @@ func getPictureOrderCount(buf []byte, sps *SPS) (uint32, error) {
 	_, err = bits.ReadBits(buf, &pos, int(sps.Log2MaxFrameNumMinus4+4)) // frame_num
 	if err != nil {
 		return 0, err
+	}
+
+	if idr {
+		_, err = bits.ReadGolombUnsigned(buf, &pos) // idr_pic_id
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	picOrderCntLsb, err := bits.ReadBits(buf, &pos, int(sps.Log2MaxPicOrderCntLsbMinus4+4))
@@ -89,9 +96,17 @@ func NewDTSExtractor() *DTSExtractor {
 func (d *DTSExtractor) extractInner(au [][]byte, pts time.Duration) (time.Duration, bool, error) {
 	var idr []byte
 	var nonIDR []byte
+	// a value of 00 indicates that the content of the NAL unit is not
+	// used to reconstruct reference pictures for inter picture
+	// prediction.  Such NAL units can be discarded without risking
+	// the integrity of the reference pictures.  Values greater than
+	// 00 indicate that the decoding of the NAL unit is required to
+	// maintain the integrity of the reference pictures.
+	nonZeroNalRefIDFound := false
 
 	for _, nalu := range au {
 		typ := NALUType(nalu[0] & 0x1F)
+		nonZeroNalRefIDFound = nonZeroNalRefIDFound || ((nalu[0] & 0x60) > 0)
 		switch typ {
 		case NALUTypeSPS:
 			if !bytes.Equal(d.sps, nalu) {
@@ -128,10 +143,16 @@ func (d *DTSExtractor) extractInner(au [][]byte, pts time.Duration) (time.Durati
 		return 0, false, fmt.Errorf("pic_order_cnt_type = 1 is not supported yet")
 	}
 
+	// Implicit processing of PicOrderCountType 0
 	switch {
 	case idr != nil:
-		d.expectedPOC = 0
 		d.pauseDTS = 0
+
+		var err error
+		d.expectedPOC, err = getPictureOrderCount(idr, d.spsp, true)
+		if err != nil {
+			return 0, false, err
+		}
 
 		if !d.prevDTSFilled || d.reorderedFrames == 0 {
 			return pts, false, nil
@@ -148,7 +169,7 @@ func (d *DTSExtractor) extractInner(au [][]byte, pts time.Duration) (time.Durati
 			return d.prevDTS + 1*time.Millisecond, true, nil
 		}
 
-		poc, err := getPictureOrderCount(nonIDR, d.spsp)
+		poc, err := getPictureOrderCount(nonIDR, d.spsp, false)
 		if err != nil {
 			return 0, false, err
 		}
@@ -189,6 +210,9 @@ func (d *DTSExtractor) extractInner(au [][]byte, pts time.Duration) (time.Durati
 		}
 
 		return d.prevDTS + (pts-d.prevDTS)/time.Duration(pocDiff+d.reorderedFrames+1), false, nil
+
+	case !nonZeroNalRefIDFound:
+		return d.prevDTS, false, nil
 
 	default:
 		return 0, false, fmt.Errorf("access unit doesn't contain an IDR or non-IDR NALU")
